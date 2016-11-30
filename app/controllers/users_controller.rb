@@ -35,9 +35,13 @@ class UsersController < ApplicationController
   
   def set_user
     @user = User.find(params[:id])
+    if User.find(params[:id]) != User.find(current_user)
+      flash[:success] = "ログインしたユーザー以外の編集はできません"
+      redirect_to @user
+    end
   end
   
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :location, :password, :password_confirmation)
   end
 end
