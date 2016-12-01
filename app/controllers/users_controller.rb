@@ -16,6 +16,11 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+  
+  def show
+    @user = User.find(params[:id])
+    @microposts = @user.microposts.order(created_at: :desc)
+  end
     
   private
   
