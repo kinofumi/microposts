@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:edit, :update]
+
   def show
     @user = User.find(params[:id])
   end
@@ -21,10 +23,30 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.order(created_at: :desc)
   end
-    
+
+  def edit
+  end
+  
+  def update
+    if @user.update(user_params)
+      flash[:success] = "ユーザー情報を更新しました"
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+  
   private
   
+  def set_user
+    @user = User.find(params[:id])
+    if @user != current_user
+      flash[:success] = "ログインしたユーザー以外でのユーザー情報の編集はできません"
+      redirect_to root_path
+    end
+  end
+  
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :location, :password, :password_confirmation)
   end
 end
