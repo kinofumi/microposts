@@ -5,10 +5,8 @@
         <%= gravatar_for @user %>
         <%= @user.name %>
         <span><%= link_to "Microposts(#{@user.microposts.count})" , current_user %></span>
-        <% if @user == current_user %>
-          <span>Followings(<%= @user.following_users.count %>)</span>
-          <span><%= link_to "Followers(#{@user.follower_users.count})" , followers_user_path %></span>
-        <% end %>
+        <span>Followings(<%= @user.following_users.count %>)</span>
+        <span><%= link_to "Followers(#{@user.follower_users.count})" , followers_user_path %></span>
       </h1>
     </section>
   </aside>
