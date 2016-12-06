@@ -15,7 +15,7 @@
   <div class="col-md-8">
     <section class="users_info">
       <h3>Followings</h3>
-      <%= @users.each do |user| %>
+      <% @users.each do |user| %>
       <%= render partial: 'users/users', locals: { user: user } %>
       <% end %>
     </section>
